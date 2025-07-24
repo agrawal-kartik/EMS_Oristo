@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <div class="row">
+   
+    <div class="col-md-5">
+      <h3 class="mb-3">{{ selectedEmployee?.employeeId ? 'Edit Employee' : 'Add Employee' }}</h3>
+      <form (ngSubmit)="saveEmployee()" #employeeForm="ngForm" class="p-3 border rounded shadow-sm bg-light">
+        <div class="mb-3">
+          <label>Name</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedEmployee.name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label>Department</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedEmployee.department" name="department" required>
+        </div>
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" [(ngModel)]="selectedEmployee.email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label>Phone</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedEmployee.phoneNumber" name="phoneNumber" required>
+        </div>
+
+        <!-- Save Button -->
+        <button type="submit" class="btn btn-success me-2" [disabled]="isSaving">
+          <span *ngIf="isSaving" class="spinner-border spinner-border-sm me-2"></span>
+          Save
+        </button>
+
+        <!-- Cancel Button -->
+        <button type="button" class="btn btn-secondary" (click)="resetForm()" [disabled]="isCancelling">
+          <span *ngIf="isCancelling" class="spinner-border spinner-border-sm me-2"></span>
+          Cancel
+        </button>
+      </form>
+    </div>
+
+    
+    <div class="col-md-7">
+      <h3 class="mb-3">Employee List</h3>
+      <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of employees">
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.department }}</td>
+            <td>{{ emp.email }}</td>
+            <td>{{ emp.phoneNumber }}</td>
+            <td>
+              <!-- Edit Button -->
+              <button class="btn btn-sm btn-primary me-2" (click)="editEmployee(emp)" [disabled]="loadingEditId === emp.employeeId">
+                <span *ngIf="loadingEditId === emp.employeeId" class="spinner-border spinner-border-sm me-2"></span>
+                Edit
+              </button>
+
+              <!-- Delete Button -->
+              <button class="btn btn-sm btn-danger" (click)="confirmDelete(emp.employeeId!)" [disabled]="loadingDeleteId === emp.employeeId">
+                <span *ngIf="loadingDeleteId === emp.employeeId" class="spinner-border spinner-border-sm me-2"></span>
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
