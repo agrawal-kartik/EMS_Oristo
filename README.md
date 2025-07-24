@@ -14,7 +14,23 @@ The API is integrated directly in the same solution — no separate frontend/bac
 - SQL Server database integration.
 
 ---
+## Application Architecture
 
+- **Frontend:**  
+  - Built with **Angular (latest)** as a **SPA**.  
+  - Uses **Bootstrap 5** for styling and a responsive layout.  
+  - All interactions (CRUD operations) are handled dynamically via API calls; no server-side rendering is used.
+
+- **Backend:**  
+  - Built with **.NET Core Web API (latest)**.  
+  - Provides RESTful endpoints for all employee management operations.  
+  - Uses **Entity Framework Core (Code-First)** with **SQL Server** for database storage.
+
+- **SPA vs MPA Decision:**  
+  - The project follows a **SPA approach** for better user experience (no page reloads, faster updates) and separation of concerns between frontend and backend.  
+  - Backend purely serves JSON, no Razor/MVC server-side views.
+
+---
 ## Prerequisites
 
 Ensure the following tools are installed:
@@ -51,6 +67,7 @@ public class Employee
     public string Email { get; set; } = string.Empty;
     public string? PhoneNumber { get; set; }
 }
+```
 
 ## Database Design
 
@@ -113,6 +130,3 @@ dotnet ef migrations add InitialCreate
 
 # Apply migrations and create/update the database
 dotnet ef database update
-
-
-
