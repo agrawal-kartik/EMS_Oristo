@@ -52,20 +52,4 @@ public class Employee
     public string? PhoneNumber { get; set; }
 }
 
-### Migration Command
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-
-
-### ER Diagram
-
-+------------------+
-|   Employees      |
-+------------------+
-| EmployeeId (PK)  |
-| Name             |
-| Department       |
-| Email (Unique)   |
-| PhoneNumber      |
-+------------------+
 
