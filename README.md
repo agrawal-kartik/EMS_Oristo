@@ -52,4 +52,67 @@ public class Employee
     public string? PhoneNumber { get; set; }
 }
 
+## Database Design
+
+The project uses **SQL Server** with a single primary table: `Employees`.  
+Entity Framework Core (EF Core) is used in **Code-First** mode, meaning the database schema is generated automatically from the C# entity models.
+
+---
+
+### Data Dictionary
+
+| Field         | Data Type       | Constraints                 | Description                                      |
+|---------------|-----------------|-----------------------------|--------------------------------------------------|
+| EmployeeId    | INT             | Primary Key, Identity (1,1) | Auto-incrementing unique identifier for employees |
+| Name          | NVARCHAR(100)   | NOT NULL                    | Full name of the employee                        |
+| Department    | NVARCHAR(100)   | NOT NULL                    | Department where the employee works (e.g., HR)   |
+| Email         | NVARCHAR(255)   | NOT NULL, Unique            | Employee email (must be unique across records)   |
+| PhoneNumber   | NVARCHAR(20)    | NULL                        | Optional phone number for contact                |
+
+---
+
+### Index Documentation
+
+- **Primary Index (Clustered):**  
+  - `EmployeeId`  
+  - Created by default as the primary key.  
+  - Ensures each employee record can be uniquely identified.  
+
+- **Unique Index (Non-Clustered):**  
+  - `Email`  
+  - Automatically enforced via `Unique` constraint in the entity.  
+  - Prevents duplicate employee email addresses.  
+
+---
+
+### Code-First vs Database-First
+
+This project uses **Code-First** approach because:
+
+1. **Rapid Development:**  
+   - Developers can define models directly in C# and generate the database automatically.
+
+2. **Version Control for Schema:**  
+   - Migrations keep schema changes tracked as code, making it easy to roll forward/backward.
+
+3. **Simplified Setup:**  
+   - New developers can clone the project, run migrations, and get the database ready without manually creating tables.
+
+4. **Flexibility:**  
+   - Future schema changes can be handled by simply updating the model and creating a new migration.
+
+---
+
+### Migration Commands
+
+Run the following commands to create and apply the schema:
+
+```bash
+# Create migration files based on current model
+dotnet ef migrations add InitialCreate
+
+# Apply migrations and create/update the database
+dotnet ef database update
+
+
 
