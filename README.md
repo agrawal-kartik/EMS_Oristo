@@ -24,3 +24,48 @@ Ensure the following tools are installed:
 - [Angular CLI (Latest)](https://angular.io/cli)  
   ```bash
   npm install -g @angular/cli
+
+  ## Database Design
+
+The project uses **SQL Server** with a single main table: `Employees`.  
+Entity Framework Core handles migrations and schema creation.
+
+### `Employees` Table Schema
+
+| Column        | Type           | Constraints                 | Description                  |
+|---------------|---------------|-----------------------------|------------------------------|
+| EmployeeId    | INT           | Primary Key, Identity (1,1) | Unique identifier for employee |
+| Name          | NVARCHAR(100) | NOT NULL                    | Full name of the employee     |
+| Department    | NVARCHAR(100) | NOT NULL                    | Department name (e.g., HR, IT)|
+| Email         | NVARCHAR(255) | NOT NULL, Unique            | Employee's email address      |
+| PhoneNumber   | NVARCHAR(20)  | NULL                        | Contact phone number          |
+
+### Entity Model (C#)
+
+```csharp
+public class Employee
+{
+    public int EmployeeId { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Department { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string? PhoneNumber { get; set; }
+}
+
+### Migration Command
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+
+### ER Diagram
+
++------------------+
+|   Employees      |
++------------------+
+| EmployeeId (PK)  |
+| Name             |
+| Department       |
+| Email (Unique)   |
+| PhoneNumber      |
++------------------+
+
