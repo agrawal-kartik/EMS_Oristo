@@ -130,3 +130,9 @@ dotnet ef migrations add InitialCreate
 
 # Apply migrations and create/update the database
 dotnet ef database update
+```
+
+### Screeshot
+
+<img width="1920" height="1080" alt="Screenshot (256)" src="https://github.com/user-attachments/assets/30599473-1717-4a47-882b-5ae967ae4375" />
+
